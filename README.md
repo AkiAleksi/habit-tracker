@@ -1,8 +1,8 @@
-# Habit Tracker
+# DevHabit — Developer Growth Tracker
 
-Yksinkertainen tapaseuranta-sovellus, joka keskittyy käyttäjän parantamiseen pelkän kirjaamisen sijaan.
+Ohjelmistokehittäjille suunnattu tapaseuranta-sovellus ammatillisen kehityksen tueksi.
 
-**Filosofia:** "Less to show, more to do" — yksi näyttö, yksi napautus, tukeva sävy.
+**Filosofia:** "Grow 1% every day" — pienet päivittäiset teot, jotka kumuloituvat merkittäväksi ammatilliseksi kasvuksi.
 
 ## Tech Stack
 
@@ -68,6 +68,8 @@ src/
 
 ## Dokumentaatio
 
-- [Project Brief](../docs/brief.md)
-- [PRD](../docs/prd.md)
-- [Architecture](../docs/architecture.md)
+- [Project Brief](./docs/brief.md)
+- [PRD](./docs/prd.md)
+- [Architecture](./docs/architecture.md)
+- [Epics](./docs/epics/)
+- [Stories](./docs/stories/)

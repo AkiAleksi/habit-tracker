@@ -3,13 +3,13 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Habit Tracker",
-  description: "Yksinkertainen tapaseuranta-sovellus",
+  title: "DevHabit",
+  description: "Kehittäjän ammatillisen kasvun seuranta",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Habit Tracker",
+    title: "DevHabit",
   },
 };
 
@@ -18,7 +18,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#84a98c",
+  themeColor: "#238636",
 };
 
 export default function RootLayout({

@@ -1,56 +1,56 @@
 /**
- * Supportive messages for different contexts
- * No guilt-tripping, only encouragement!
+ * Developer growth messages for different contexts
+ * Encouraging professional development, no guilt-tripping!
  */
 
 export const messages = {
   morning: [
-    'Hyvää huomenta! Tänään on uusi mahdollisuus.',
-    'Uusi päivä, uudet mahdollisuudet!',
-    'Aamun pienet askeleet vievät pitkälle.',
-    'Hyvää huomenta! Miten voit tänään?',
-    'Tervetuloa uuteen päivään!',
+    'Uusi päivä, uusi mahdollisuus oppia!',
+    'Kasva 1% tänään. Mitä opit?',
+    'Aamu on paras aika deep workille.',
+    'Jokainen senior dev oli joskus junior.',
+    'Tänään on hyvä päivä commitoida itsensä kehittämiseen.',
   ],
 
   afternoon: [
-    'Miten päiväsi sujuu?',
-    'Jokainen askel vie lähemmäs tavoitetta.',
-    'Pienet teot, suuret tulokset.',
-    'Olet matkalla parempaan.',
-    'Hienoa työtä! Jatka samaan malliin.',
+    'Miten päiväsi sujuu? Oletko oppinut jotain uutta?',
+    'Compound interest toimii myös osaamisessa.',
+    'Pienet päivittäiset teot → suuri ammatillinen kasvu.',
+    'Tämän päivän oppiminen on huomisen tuottavuus.',
+    'Build, learn, iterate – myös itsellesi.',
   ],
 
   evening: [
-    'Illalla on hyvä hetki tarkistaa päivän edistyminen.',
-    'Miten päiväsi on sujunut?',
-    'Muista levätä hyvin!',
-    'Rauhallista iltaa!',
-    'Hyvää työtä tänään!',
+    'Illalla on hyvä hetki reflektoida päivän oppeja.',
+    'Hyvää työtä tänään! Pienikin edistys vie eteenpäin.',
+    'TIL-hetki? Kirjaa päivän opit ylös.',
+    'Hyvä lopetus päivälle. Muista levätä!',
+    'Code review itsellesi: mitä opit tänään?',
   ],
 
   allDone: [
-    'Mahtavaa! Olet tehnyt kaikki tavat tänään!',
-    'Täydellinen päivä! Olet sankari!',
-    'Kaikki tehty! Nauti onnistumisesta.',
-    'Upea suoritus! Kaikki tavat tehty!',
-    'Loistavaa! Olet voittaja!',
+    '100% – Olet todellinen growth hacker!',
+    'Kaikki tehty! Stack overflow of productivity.',
+    'Full commit – kaikki tavat mergattu!',
+    'Deploy complete! Upea päivä.',
+    'Achievement unlocked: Daily growth routine!',
   ],
 
   encouragement: [
-    'Hyvä alku! Pidä vauhtia yllä.',
-    'Olet oikealla tiellä!',
-    'Jatka samaan malliin!',
-    'Jokainen tapa vie eteenpäin.',
-    'Sinä pystyt tähän!',
+    'Johdonmukaisuus > intensiteetti.',
+    'Olet oikealla tiellä! Keep shipping.',
+    'Jatka samaan malliin! Progress > perfection.',
+    'Jokainen tapa vie eteenpäin. Iterate!',
+    'Sinä pystyt tähän! Debug, adapt, overcome.',
   ],
 
   streakMilestones: {
-    7: 'Viikko putkeen! Upea suoritus! 🎉',
-    14: 'Kaksi viikkoa! Olet todella sitoutunut! 🌟',
-    30: 'Kuukausi! Olet mestari! 🏆',
-    60: 'Kaksi kuukautta! Legendaarista! 💪',
-    100: '100 päivää! Olet inspiraatio! 👑',
-    365: 'Kokonainen vuosi! Uskomaton saavutus! 🎊',
+    7: '7 päivän putki! Johdonmukaisuus maksaa. 🎉',
+    14: '2 viikkoa! Olet buildannut oikean habitin! 🌟',
+    30: 'Kuukausi! Tästä on tehty seniorit. 🏆',
+    60: '60 päivää! Olet koodarieliitin kärkijoukkoa! 💪',
+    100: '100 päivää! Stack level: Legendary! 👑',
+    365: 'Vuosi! Open source -tason sitoutuminen! 🎊',
   } as Record<number, string>,
 };
 
@@ -80,10 +80,10 @@ export function getTimeBasedGreeting(): string {
  * Get progress-based message
  */
 export function getProgressMessage(completed: number, total: number): string {
-  if (total === 0) return 'Lisää ensimmäinen tapasi!';
+  if (total === 0) return 'Lisää ensimmäinen kehitystavastasi!';
   if (completed === 0) return getRandomMessage(messages.encouragement);
   if (completed === total) return getRandomMessage(messages.allDone);
-  if (completed >= total / 2) return 'Hienoa työtä! Jatka samaan malliin.';
+  if (completed >= total / 2) return 'Hyvä tahti! Keep shipping.';
   return getRandomMessage(messages.encouragement);
 }
 

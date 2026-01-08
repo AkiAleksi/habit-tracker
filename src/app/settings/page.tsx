@@ -143,13 +143,13 @@ export default function SettingsPage() {
               className="font-medium"
               style={{ color: 'var(--color-text)' }}
             >
-              Habit Tracker
+              DevHabit
             </p>
             <p
               className="text-sm"
               style={{ color: 'var(--color-text-muted)' }}
             >
-              Yksinkertainen tapaseuranta-sovellus
+              Kehittäjän ammatillisen kasvun seuranta
             </p>
           </div>
         </section>
@@ -159,7 +159,7 @@ export default function SettingsPage() {
           className="text-center text-sm"
           style={{ color: 'var(--color-text-muted)' }}
         >
-          Versio 1.0.0
+          Versio 2.0.0
         </footer>
 
         {/* Modals */}

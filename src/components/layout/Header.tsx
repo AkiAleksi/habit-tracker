@@ -7,7 +7,7 @@ interface HeaderProps {
   showSettings?: boolean;
 }
 
-export function Header({ title = 'Habit Tracker', showSettings = true }: HeaderProps) {
+export function Header({ title = 'DevHabit', showSettings = true }: HeaderProps) {
   return (
     <header className="flex items-center justify-between py-4">
       <h1
@@ -18,16 +18,46 @@ export function Header({ title = 'Habit Tracker', showSettings = true }: HeaderP
       </h1>
 
       {showSettings && (
-        <Link
-          href="/settings"
-          aria-label="Asetukset"
-          className="flex items-center justify-center rounded-full p-2 hover:opacity-70"
-          style={{ color: 'var(--color-text-muted)' }}
-        >
-          <SettingsIcon />
-        </Link>
+        <div className="flex items-center gap-1">
+          <Link
+            href="/history"
+            aria-label="Historia"
+            className="flex items-center justify-center rounded-full p-2 hover:opacity-70"
+            style={{ color: 'var(--color-text-muted)' }}
+          >
+            <HistoryIcon />
+          </Link>
+          <Link
+            href="/settings"
+            aria-label="Asetukset"
+            className="flex items-center justify-center rounded-full p-2 hover:opacity-70"
+            style={{ color: 'var(--color-text-muted)' }}
+          >
+            <SettingsIcon />
+          </Link>
+        </div>
       )}
     </header>
+  );
+}
+
+function HistoryIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+      <path d="M12 7v5l4 2" />
+    </svg>
   );
 }
 
