@@ -52,7 +52,15 @@ export function HabitList() {
             name={habit.name}
             completed={isCompletedToday(habit.id)}
             streak={getStreak(habit.id)}
-            onToggle={() => toggleHabit(habit.id)}
+            onToggle={() => {
+              const wasCompleted = isCompletedToday(habit.id);
+              toggleHabit(habit.id);
+              // Award XP only when completing (not uncompleting)
+              if (!wasCompleted) {
+                const streak = getStreak(habit.id) + 1; // +1 because streak increases after toggle
+                awardCompletionXP(streak);
+              }
+            }}
             onEdit={() => setEditingHabit(habit)}
             onDelete={() => setDeletingHabit(habit)}
           />
@@ -73,7 +81,10 @@ export function HabitList() {
       <AddHabitModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        onAdd={addHabit}
+        onAdd={(name) => {
+          addHabit(name);
+          awardNewHabitXP();
+        }}
       />
 
       {/* Edit habit modal */}
