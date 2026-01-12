@@ -7,9 +7,11 @@ import { EditHabitModal } from './EditHabitModal';
 import { Button } from '@/components/ui/Button';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { useHabitsContext, Habit } from '@/contexts/HabitsContext';
+import { useGamificationContext } from '@/contexts/GamificationContext';
 
 export function HabitList() {
   const { habits, isLoaded, addHabit, toggleHabit, editHabit, deleteHabit, isCompletedToday, getStreak } = useHabitsContext();
+  const { awardCompletionXP, awardNewHabitXP } = useGamificationContext();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingHabit, setEditingHabit] = useState<Habit | null>(null);
   const [deletingHabit, setDeletingHabit] = useState<Habit | null>(null);

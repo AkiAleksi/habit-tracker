@@ -1,8 +1,9 @@
 import { Container } from '@/components/layout/Container';
 import { Header } from '@/components/layout/Header';
 import { DateDisplay } from '@/components/dashboard/DateDisplay';
-import { WelcomeMessage } from '@/components/dashboard/WelcomeMessage';
+import { DailyProgress } from '@/components/dashboard/DailyProgress';
 import { HabitList } from '@/components/habits/HabitList';
+import { PlayerStatsCard } from '@/components/dashboard/PlayerStatsCard';
 
 export default function Home() {
   return (
@@ -13,9 +14,10 @@ export default function Home() {
       <Container>
         <Header />
 
-        <section className="mb-6">
+        <section className="mb-6 space-y-4">
           <DateDisplay />
-          <WelcomeMessage />
+          <PlayerStatsCard />
+          <DailyProgress />
         </section>
 
         <section>

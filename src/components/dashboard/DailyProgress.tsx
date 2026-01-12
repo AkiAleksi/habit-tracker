@@ -44,10 +44,15 @@ export function DailyProgress() {
     return null;
   }
 
+  const isComplete = percentage === 100;
+
   return (
     <div
       className="rounded-xl p-4"
-      style={{ backgroundColor: 'var(--color-surface)' }}
+      style={{
+        backgroundColor: 'var(--color-surface)',
+        border: '1px solid var(--color-border)',
+      }}
     >
       {/* Header with progress text */}
       <div className="flex items-center justify-between mb-3">
@@ -55,26 +60,27 @@ export function DailyProgress() {
           className="text-sm font-medium"
           style={{ color: 'var(--color-text)' }}
         >
-          Tänään
+          Päivän edistyminen
         </span>
         <span
-          className="text-sm"
-          style={{ color: 'var(--color-text-muted)' }}
+          className="font-mono text-sm font-semibold"
+          style={{ color: isComplete ? 'var(--color-success)' : 'var(--color-text)' }}
         >
-          {completed}/{total} tehty
+          {completed}/{total}
         </span>
       </div>
 
       {/* Progress bar */}
       <div
-        className="h-3 w-full overflow-hidden rounded-full"
-        style={{ backgroundColor: 'var(--color-background)' }}
+        className="h-2 w-full overflow-hidden rounded-full"
+        style={{ backgroundColor: 'var(--color-border)' }}
       >
         <div
-          className="h-full rounded-full transition-all duration-500 ease-out"
+          className="progress-bar h-full rounded-full"
           style={{
             width: `${percentage}%`,
-            backgroundColor: percentage === 100 ? 'var(--color-success)' : 'var(--color-primary)',
+            backgroundColor: isComplete ? 'var(--color-success)' : 'var(--color-primary)',
+            boxShadow: isComplete ? '0 0 12px rgba(35, 134, 54, 0.5)' : 'none',
           }}
         />
       </div>
@@ -83,9 +89,9 @@ export function DailyProgress() {
       {message && (
         <p
           className="mt-3 text-sm"
-          style={{ color: 'var(--color-text-muted)' }}
+          style={{ color: isComplete ? 'var(--color-success)' : 'var(--color-text-muted)' }}
         >
-          {message}
+          {isComplete ? '🎉 ' : ''}{message}
         </p>
       )}
     </div>

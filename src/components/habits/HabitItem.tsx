@@ -1,9 +1,5 @@
 'use client';
 
-import { useState, useRef } from 'react';
-
-import { formatStreak } from '@/utils/streak';
-
 interface HabitItemProps {
   name: string;
   completed: boolean;
@@ -14,138 +10,82 @@ interface HabitItemProps {
 }
 
 export function HabitItem({ name, completed, streak, onToggle, onEdit, onDelete }: HabitItemProps) {
-  const [showActions, setShowActions] = useState(false);
-  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
-  const isLongPress = useRef(false);
+  return (
+    <div
+      className={`flex w-full items-center gap-3 rounded-xl p-4 transition-all ${completed ? 'pulse-success' : ''}`}
+      style={{
+        backgroundColor: 'var(--color-surface)',
+        border: `1px solid ${completed ? 'var(--color-success)' : 'var(--color-border)'}`,
+      }}
+    >
+      {/* Checkbox - clickable area for toggle */}
+      <button
+        onClick={onToggle}
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-all hover:scale-110 active:scale-95"
+        style={{
+          backgroundColor: completed ? 'var(--color-success)' : 'transparent',
+          border: completed ? 'none' : '2px solid var(--color-border)',
+        }}
+        aria-label={completed ? 'Merkitse tekemättömäksi' : 'Merkitse tehdyksi'}
+      >
+        {completed && <CheckIcon />}
+      </button>
 
-  const handleTouchStart = () => {
-    isLongPress.current = false;
-    longPressTimer.current = setTimeout(() => {
-      isLongPress.current = true;
-      setShowActions(true);
-    }, 500);
-  };
-
-  const handleTouchEnd = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-    }
-    if (!isLongPress.current) {
-      onToggle();
-    }
-  };
-
-  const handleTouchMove = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-    }
-  };
-
-  const handleClick = (e: React.MouseEvent) => {
-    // For desktop: toggle on click, show actions on right-click
-    if (e.type === 'contextmenu') {
-      e.preventDefault();
-      setShowActions(true);
-    }
-  };
-
-  if (showActions) {
-    return (
-      <div
-        className="flex items-center gap-2 rounded-xl p-4"
-        style={{ backgroundColor: 'var(--color-surface)' }}
+      {/* Habit name - also clickable for toggle */}
+      <button
+        onClick={onToggle}
+        className="flex-1 min-w-0 text-left"
       >
         <span
-          className="flex-1 truncate text-base font-medium"
-          style={{ color: 'var(--color-text)' }}
+          className="block truncate text-base font-medium transition-all"
+          style={{
+            color: completed ? 'var(--color-text-muted)' : 'var(--color-text)',
+            textDecoration: completed ? 'line-through' : 'none',
+          }}
         >
           {name}
         </span>
+      </button>
 
-        <button
-          onClick={() => {
-            setShowActions(false);
-            onEdit();
+      {/* Streak badge */}
+      {streak > 0 && (
+        <div
+          className={`flex items-center gap-1 shrink-0 rounded-md px-2 py-1 ${streak >= 7 ? 'streak-glow' : ''}`}
+          style={{
+            backgroundColor: streak >= 7 ? 'var(--color-streak-bg)' : 'var(--color-surface-hover)',
           }}
-          className="flex h-10 w-10 items-center justify-center rounded-full hover:opacity-70"
-          style={{ backgroundColor: 'var(--color-background)' }}
+        >
+          <span style={{ fontSize: '12px' }}>🔥</span>
+          <span
+            className="font-mono text-xs font-semibold"
+            style={{
+              color: streak >= 7 ? 'var(--color-streak)' : 'var(--color-text-muted)',
+            }}
+          >
+            {streak}
+          </span>
+        </div>
+      )}
+
+      {/* Action buttons - always visible */}
+      <div className="flex items-center gap-1 shrink-0">
+        <button
+          onClick={onEdit}
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-[var(--color-surface-hover)]"
           aria-label="Muokkaa"
         >
           <EditIcon />
         </button>
 
         <button
-          onClick={() => {
-            setShowActions(false);
-            onDelete();
-          }}
-          className="flex h-10 w-10 items-center justify-center rounded-full hover:opacity-70"
-          style={{ backgroundColor: 'var(--color-background)' }}
+          onClick={onDelete}
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-[rgba(248,81,73,0.15)]"
           aria-label="Poista"
         >
           <DeleteIcon />
         </button>
-
-        <button
-          onClick={() => setShowActions(false)}
-          className="flex h-10 w-10 items-center justify-center rounded-full hover:opacity-70"
-          style={{ backgroundColor: 'var(--color-background)' }}
-          aria-label="Peruuta"
-        >
-          <CloseIcon />
-        </button>
       </div>
-    );
-  }
-
-  return (
-    <button
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onTouchMove={handleTouchMove}
-      onClick={onToggle}
-      onContextMenu={handleClick}
-      className="flex w-full items-center gap-4 rounded-xl p-4 text-left transition-all active:scale-[0.98]"
-      style={{
-        backgroundColor: completed ? 'var(--color-primary)' : 'var(--color-surface)',
-        opacity: completed ? 0.9 : 1,
-      }}
-    >
-      {/* Checkbox circle */}
-      <div
-        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 transition-all"
-        style={{
-          borderColor: completed ? 'white' : 'var(--color-primary)',
-          backgroundColor: completed ? 'white' : 'transparent',
-        }}
-      >
-        {completed && <CheckIcon />}
-      </div>
-
-      {/* Habit name */}
-      <span
-        className="flex-1 text-base font-medium transition-all"
-        style={{
-          color: completed ? 'white' : 'var(--color-text)',
-          textDecoration: completed ? 'line-through' : 'none',
-          opacity: completed ? 0.9 : 1,
-        }}
-      >
-        {name}
-      </span>
-
-      {/* Streak badge */}
-      {streak > 0 && (
-        <span
-          className="shrink-0 text-sm font-medium"
-          style={{
-            color: completed ? 'rgba(255,255,255,0.8)' : 'var(--color-text-muted)',
-          }}
-        >
-          {formatStreak(streak)}
-        </span>
-      )}
-    </button>
+    </div>
   );
 }
 
@@ -206,21 +146,3 @@ function DeleteIcon() {
   );
 }
 
-function CloseIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="var(--color-text-muted)"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
-    </svg>
-  );
-}

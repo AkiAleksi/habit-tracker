@@ -1,28 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand colors - Habit Tracker */
-  --color-primary: #84a98c;
-  --color-primary-dark: #6b8f73;
-  --color-accent: #fb7185;
-  --color-background: #f5f5f4;
-  --color-surface: #ffffff;
-  --color-text: #1f2937;
-  --color-text-muted: #6b7280;
-  --color-success: #22c55e;
-  --color-border: #e5e7eb;
+  /* DevHabit - GitHub Dark Theme */
+
+  /* Backgrounds */
+  --color-background: #0d1117;
+  --color-surface: #161b22;
+  --color-surface-hover: #21262d;
+  --color-surface-active: #282e36;
+
+  /* Borders */
+  --color-border: #30363d;
+  --color-border-light: #21262d;
+
+  /* Text */
+  --color-text: #e6edf3;
+  --color-text-muted: #8b949e;
+  --color-text-placeholder: #6e7681;
+
+  /* Accent colors */
+  --color-primary: #238636;
+  --color-primary-hover: #2ea043;
+  --color-primary-muted: #238636cc;
+
+  /* Status colors */
+  --color-success: #238636;
+  --color-success-bg: #23863622;
+  --color-streak: #f97316;
+  --color-streak-bg: #f9731622;
+  --color-focus: #58a6ff;
+  --color-danger: #f85149;
+
+  /* Legacy mappings */
+  --color-primary-dark: #1a7f37;
+  --color-accent: #f97316;
 }
 
 @theme inline {
   --color-primary: var(--color-primary);
-  --color-primary-dark: var(--color-primary-dark);
-  --color-accent: var(--color-accent);
+  --color-primary-hover: var(--color-primary-hover);
   --color-background: var(--color-background);
   --color-surface: var(--color-surface);
+  --color-surface-hover: var(--color-surface-hover);
   --color-text: var(--color-text);
   --color-text-muted: var(--color-text-muted);
   --color-success: var(--color-success);
   --color-border: var(--color-border);
+  --color-streak: var(--color-streak);
+  --color-focus: var(--color-focus);
 }
 
 * {
@@ -32,16 +57,37 @@
 body {
   background: var(--color-background);
   color: var(--color-text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 
+/* Monospace for numbers and code accents */
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+}
+
 /* Ensure touch targets are large enough */
-button, a, input, [role="button"] {
+button, a, [role="button"] {
   min-height: 44px;
-  min-width: 44px;
+}
+
+input, textarea {
+  min-height: 44px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
 }
 
 /* Smooth transitions */
@@ -49,4 +95,261 @@ button, a, input, [role="button"] {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* Card hover effect */
+.card-hover:hover {
+  background: var(--color-surface-hover);
+  transform: translateY(-1px);
+}
+
+.card-hover:active {
+  transform: translateY(0);
+  background: var(--color-surface-active);
+}
+
+/* Success pulse animation */
+@keyframes success-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(35, 134, 54, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0); }
+}
+
+.pulse-success {
+  animation: success-pulse 0.6s ease-out;
+}
+
+/* Streak glow */
+@keyframes streak-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.streak-glow {
+  animation: streak-glow 2s ease-in-out infinite;
+}
+
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== GAMIFICATION ANIMATIONS ===== */
+
+/* XP Bar shimmer effect */
+@keyframes xp-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.xp-bar {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    #2ea043 25%,
+    #3fb950 50%,
+    #2ea043 75%,
+    var(--color-primary) 100%
+  );
+  background-size: 200% 100%;
+  animation: xp-shimmer 3s linear infinite;
+}
+
+/* Level up celebration */
+@keyframes level-up-burst {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes level-up-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(35, 134, 54, 0.3), 0 0 40px rgba(35, 134, 54, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(35, 134, 54, 0.5), 0 0 80px rgba(35, 134, 54, 0.3);
+  }
+}
+
+.level-up-animation {
+  animation: level-up-burst 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+             level-up-glow 2s ease-in-out infinite;
+}
+
+/* Achievement unlock */
+@keyframes achievement-unlock {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes achievement-shine {
+  0% { left: -100%; }
+  50%, 100% { left: 200%; }
+}
+
+.achievement-unlock {
+  animation: achievement-unlock 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.achievement-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: achievement-shine 2s ease-in-out infinite;
+}
+
+/* XP gain popup */
+@keyframes xp-popup {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-30px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+.xp-popup {
+  animation: xp-popup 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Floating particles */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.particle {
+  animation: float-particle 1s ease-out forwards;
+}
+
+/* Rarity glow effects */
+.rarity-common {
+  border-color: #8b949e;
+}
+
+.rarity-rare {
+  border-color: #58a6ff;
+  box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+}
+
+.rarity-epic {
+  border-color: #a855f7;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+}
+
+.rarity-legendary {
+  border-color: #f97316;
+  box-shadow: 0 0 25px rgba(249, 115, 22, 0.3);
+  animation: legendary-pulse 2s ease-in-out infinite;
+}
+
+@keyframes legendary-pulse {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(249, 115, 22, 0.5), 0 0 60px rgba(249, 115, 22, 0.2);
+  }
+}
+
+/* Level badge gradient backgrounds */
+.level-badge {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+}
+
+/* Confetti burst */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  animation: confetti-fall 3s linear forwards;
+}
+
+/* Modal backdrop blur */
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+  background: rgba(13, 17, 23, 0.8);
+}
+
+/* Bounce animation for icons */
+@keyframes bounce-in {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.25); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.bounce-in {
+  animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Counter animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-up {
+  animation: count-up 0.3s ease-out forwards;
+}
+
+/* Hover lift effect for cards */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
