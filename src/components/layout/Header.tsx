@@ -1,6 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
+import { LoginModal } from '@/components/auth/LoginModal';
+import { RegisterModal } from '@/components/auth/RegisterModal';
 
 interface HeaderProps {
   title?: string;
@@ -8,44 +12,98 @@ interface HeaderProps {
 }
 
 export function Header({ title = 'DevHabit', showSettings = true }: HeaderProps) {
-  return (
-    <header className="flex items-center justify-between py-5">
-      <div className="flex items-center gap-2">
-        <div
-          className="flex h-8 w-8 items-center justify-center rounded-lg"
-          style={{ backgroundColor: 'var(--color-primary)' }}
-        >
-          <CodeIcon />
-        </div>
-        <h1
-          className="text-xl font-semibold tracking-tight"
-          style={{ color: 'var(--color-text)' }}
-        >
-          {title}
-        </h1>
-      </div>
+  const { user, loading } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
-      {showSettings && (
-        <div className="flex items-center gap-1">
-          <Link
-            href="/history"
-            aria-label="Historia"
-            className="flex items-center justify-center rounded-lg p-2 hover:bg-[var(--color-surface-hover)]"
-            style={{ color: 'var(--color-text-muted)' }}
+  const isAnonymous = user?.isAnonymous ?? true;
+
+  return (
+    <>
+      <header className="flex items-center justify-between py-5">
+        <div className="flex items-center gap-2">
+          <div
+            className="flex h-8 w-8 items-center justify-center rounded-lg"
+            style={{ backgroundColor: 'var(--color-primary)' }}
           >
-            <HistoryIcon />
-          </Link>
-          <Link
-            href="/settings"
-            aria-label="Asetukset"
-            className="flex items-center justify-center rounded-lg p-2 hover:bg-[var(--color-surface-hover)]"
-            style={{ color: 'var(--color-text-muted)' }}
+            <CodeIcon />
+          </div>
+          <h1
+            className="text-xl font-semibold tracking-tight"
+            style={{ color: 'var(--color-text)' }}
           >
-            <SettingsIcon />
-          </Link>
+            {title}
+          </h1>
         </div>
-      )}
-    </header>
+
+        <div className="flex items-center gap-2">
+          {/* Auth status */}
+          {!loading && isAnonymous && (
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:opacity-80"
+              style={{
+                backgroundColor: 'var(--color-primary)',
+                color: 'white',
+              }}
+            >
+              <UserIcon />
+              Kirjaudu
+            </button>
+          )}
+
+          {!loading && !isAnonymous && (
+            <Link
+              href="/settings"
+              className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-[var(--color-surface-hover)]"
+            >
+              <div
+                className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold"
+                style={{
+                  backgroundColor: 'var(--color-primary)',
+                  color: 'white',
+                }}
+              >
+                {user?.email?.charAt(0).toUpperCase() || 'U'}
+              </div>
+            </Link>
+          )}
+
+          {showSettings && (
+            <div className="flex items-center gap-1">
+              <Link
+                href="/history"
+                aria-label="Historia"
+                className="flex items-center justify-center rounded-lg p-2 hover:bg-[var(--color-surface-hover)]"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                <HistoryIcon />
+              </Link>
+              <Link
+                href="/settings"
+                aria-label="Asetukset"
+                className="flex items-center justify-center rounded-lg p-2 hover:bg-[var(--color-surface-hover)]"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                <SettingsIcon />
+              </Link>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
+
+      {/* Register Modal */}
+      <RegisterModal
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+      />
+    </>
   );
 }
 
@@ -64,6 +122,25 @@ function CodeIcon() {
     >
       <polyline points="16 18 22 12 16 6" />
       <polyline points="8 6 2 12 8 18" />
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
     </svg>
   );
 }

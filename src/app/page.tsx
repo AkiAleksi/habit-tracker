@@ -4,6 +4,7 @@ import { DateDisplay } from '@/components/dashboard/DateDisplay';
 import { DailyProgress } from '@/components/dashboard/DailyProgress';
 import { HabitList } from '@/components/habits/HabitList';
 import { PlayerStatsCard } from '@/components/dashboard/PlayerStatsCard';
+import { AccountBanner } from '@/components/auth/AccountBanner';
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
     >
       <Container>
         <Header />
+
+        <AccountBanner />
 
         <section className="mb-6 space-y-4">
           <DateDisplay />
