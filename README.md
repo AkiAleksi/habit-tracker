@@ -4,6 +4,8 @@
 
 A gamified habit tracking app designed for software developers who want to grow 1% every day. Track your learning, coding practices, and professional development with XP, achievements, and streak tracking.
 
+**[Live Demo](https://habit-tracker-khaki-alpha.vercel.app)**
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-Auth%20%2B%20Firestore-orange?logo=firebase)](https://firebase.google.com/)
