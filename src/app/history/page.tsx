@@ -25,16 +25,6 @@ export default function HistoryPage() {
 
   const days = getLast7Days();
 
-  // Calculate completion for a specific day
-  const getCompletionForDay = (habitId: string, dateKey: string) => {
-    // For today, use isCompletedToday
-    if (dateKey === new Date().toISOString().split('T')[0]) {
-      return isCompletedToday(habitId);
-    }
-    // For past days, we'd need access to logs - simplified for now
-    return false;
-  };
-
   if (!isLoaded) {
     return (
       <main

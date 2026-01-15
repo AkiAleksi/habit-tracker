@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import { useLocalStorage } from './useLocalStorage';
-import { useFirestoreSync, FirestoreHabit, FirestoreHabitLog } from './useFirestoreSync';
+import { useFirestoreSync, FirestoreHabit } from './useFirestoreSync';
 import { getTodayKey } from '@/utils/date';
 import { calculateStreak } from '@/utils/streak';
 

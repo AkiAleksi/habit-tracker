@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, ReactNode, useCallback, useEffect, useRef } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { useHabitsContext } from './HabitsContext';
 import { useGamification } from '@/hooks/useGamification';
 import { LevelUpModal, AchievementUnlockModal } from '@/components/gamification';
@@ -34,12 +34,11 @@ interface GamificationProviderProps {
 }
 
 export function GamificationProvider({ children }: GamificationProviderProps) {
-  const { habits, getStreak, isCompletedToday, getTodayProgress, isLoaded } = useHabitsContext();
+  const { habits, getStreak, getTodayProgress } = useHabitsContext();
 
   const gamification = useGamification({
     habits,
     getStreak,
-    isCompletedToday,
     getTodayProgress,
   });
 

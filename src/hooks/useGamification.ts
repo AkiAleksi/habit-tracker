@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import {
-  LEVELS,
   ACHIEVEMENTS,
   XP_REWARDS,
   getLevelFromXP,
@@ -11,7 +10,6 @@ import {
   getXPProgress,
   checkAchievementUnlocked,
   Achievement,
-  Level,
   UserStats,
 } from '@/lib/gamification';
 
@@ -36,14 +34,12 @@ const INITIAL_DATA: GamificationData = {
 interface UseGamificationProps {
   habits: { id: string; name: string }[];
   getStreak: (habitId: string) => number;
-  isCompletedToday: (habitId: string) => boolean;
   getTodayProgress: () => { completed: number; total: number; percentage: number };
 }
 
 export function useGamification({
   habits,
   getStreak,
-  isCompletedToday,
   getTodayProgress,
 }: UseGamificationProps) {
   const [data, setData] = useLocalStorage<GamificationData>('devhabit-gamification', INITIAL_DATA);
@@ -170,6 +166,7 @@ export function useGamification({
     if (habits.length > 0) {
       checkAchievements();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stats.totalCompletions, stats.longestStreak, stats.habitsCreated, currentLevel.level]);
 
   // Dismiss achievement notification
