@@ -13,8 +13,11 @@ import {
   onAuthStateChanged,
   signInAnonymously,
   signInWithEmailAndPassword,
+  signInWithPopup,
   linkWithCredential,
+  linkWithPopup,
   EmailAuthProvider,
+  GoogleAuthProvider,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
 import { getFirebaseAuth } from '@/lib/firebase';
@@ -26,6 +29,7 @@ interface AuthContextValue {
   error: string | null;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   clearError: () => void;
 }
@@ -125,6 +129,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
+  const signInWithGoogle = useCallback(async () => {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      throw new Error('Auth not initialized');
+    }
+
+    setError(null);
+    const provider = new GoogleAuthProvider();
+
+    try {
+      // If user is anonymous, link with Google
+      if (auth.currentUser?.isAnonymous) {
+        await linkWithPopup(auth.currentUser, provider);
+      } else {
+        // Otherwise just sign in
+        await signInWithPopup(auth, provider);
+      }
+    } catch (err: unknown) {
+      const error = err as { code?: string };
+      if (error.code === 'auth/credential-already-in-use') {
+        // Account exists, sign in instead
+        await signInWithPopup(auth, provider);
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        throw new Error('Kirjautuminen peruutettu.');
+      } else {
+        throw new Error('Google-kirjautuminen epäonnistui. Yritä uudelleen.');
+      }
+    }
+  }, []);
+
   const signOut = useCallback(async () => {
     const auth = getFirebaseAuth();
     if (!auth) return;
@@ -149,6 +183,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     error,
     registerWithEmail,
     signInWithEmail,
+    signInWithGoogle,
     signOut,
     clearError,
   };
