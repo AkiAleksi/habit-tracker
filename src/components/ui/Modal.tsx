@@ -35,7 +35,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/50 cursor-pointer"
         onClick={onClose}
       />
 
@@ -54,7 +54,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
           </h2>
           <button
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full hover:opacity-70"
+            className="flex h-8 w-8 items-center justify-center rounded-full cursor-pointer hover:opacity-70"
             style={{ color: 'var(--color-text-muted)' }}
             aria-label="Sulje"
           >

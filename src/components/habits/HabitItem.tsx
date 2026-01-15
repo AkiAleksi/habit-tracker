@@ -21,7 +21,7 @@ export function HabitItem({ name, completed, streak, onToggle, onEdit, onDelete 
       {/* Checkbox - clickable area for toggle */}
       <button
         onClick={onToggle}
-        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-all hover:scale-110 active:scale-95"
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-all cursor-pointer hover:scale-110 active:scale-95"
         style={{
           backgroundColor: completed ? 'var(--color-success)' : 'transparent',
           border: completed ? 'none' : '2px solid var(--color-border)',
@@ -34,7 +34,7 @@ export function HabitItem({ name, completed, streak, onToggle, onEdit, onDelete 
       {/* Habit name - also clickable for toggle */}
       <button
         onClick={onToggle}
-        className="flex-1 min-w-0 text-left"
+        className="flex-1 min-w-0 text-left cursor-pointer"
       >
         <span
           className="block truncate text-base font-medium transition-all"
@@ -71,7 +71,7 @@ export function HabitItem({ name, completed, streak, onToggle, onEdit, onDelete 
       <div className="flex items-center gap-1 shrink-0">
         <button
           onClick={onEdit}
-          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-[var(--color-surface-hover)]"
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors cursor-pointer hover:bg-[var(--color-surface-hover)]"
           aria-label="Muokkaa"
         >
           <EditIcon />
@@ -79,7 +79,7 @@ export function HabitItem({ name, completed, streak, onToggle, onEdit, onDelete 
 
         <button
           onClick={onDelete}
-          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-[rgba(248,81,73,0.15)]"
+          className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors cursor-pointer hover:bg-[rgba(248,81,73,0.15)]"
           aria-label="Poista"
         >
           <DeleteIcon />

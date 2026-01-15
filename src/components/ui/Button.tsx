@@ -17,7 +17,7 @@ export function Button({
   disabled = false,
   className = '',
 }: ButtonProps) {
-  const baseStyles = 'rounded-xl px-6 py-3 font-medium transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'rounded-xl px-6 py-3 font-medium transition-all cursor-pointer active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantStyles = {
     primary: 'text-white',

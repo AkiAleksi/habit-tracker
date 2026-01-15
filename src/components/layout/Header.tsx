@@ -41,7 +41,7 @@ export function Header({ title = 'DevHabit', showSettings = true }: HeaderProps)
           {!loading && isAnonymous && (
             <button
               onClick={() => setShowLoginModal(true)}
-              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:opacity-80"
+              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors cursor-pointer hover:opacity-80"
               style={{
                 backgroundColor: 'var(--color-primary)',
                 color: 'white',
@@ -55,7 +55,7 @@ export function Header({ title = 'DevHabit', showSettings = true }: HeaderProps)
           {!loading && !isAnonymous && (
             <Link
               href="/settings"
-              className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-[var(--color-surface-hover)]"
+              className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors cursor-pointer hover:bg-[var(--color-surface-hover)]"
             >
               <div
                 className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold"
@@ -74,7 +74,7 @@ export function Header({ title = 'DevHabit', showSettings = true }: HeaderProps)
               <Link
                 href="/history"
                 aria-label="Historia"
-                className="flex items-center justify-center rounded-lg p-2 hover:bg-[var(--color-surface-hover)]"
+                className="flex items-center justify-center rounded-lg p-2 cursor-pointer hover:bg-[var(--color-surface-hover)]"
                 style={{ color: 'var(--color-text-muted)' }}
               >
                 <HistoryIcon />
@@ -82,7 +82,7 @@ export function Header({ title = 'DevHabit', showSettings = true }: HeaderProps)
               <Link
                 href="/settings"
                 aria-label="Asetukset"
-                className="flex items-center justify-center rounded-lg p-2 hover:bg-[var(--color-surface-hover)]"
+                className="flex items-center justify-center rounded-lg p-2 cursor-pointer hover:bg-[var(--color-surface-hover)]"
                 style={{ color: 'var(--color-text-muted)' }}
               >
                 <SettingsIcon />
